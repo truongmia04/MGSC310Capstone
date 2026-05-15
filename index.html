@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bedrock Capstone - Deliverables & Agenda</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f3; color: #1a1a1a; padding: 2rem; }
+  .container { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: #666; margin-bottom: 1.5rem; }
+  .deadline-bar { background: #FAEEDA; border: 1px solid #EF9F27; border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; gap: 10px; font-size: 13px; color: #633806; margin-bottom: 16px; }
+  .tab-row { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+  .tab { font-size: 13px; padding: 7px 16px; border-radius: 8px; border: 1px solid #ccc; cursor: pointer; color: #555; background: #fff; transition: all 0.15s; }
+  .tab.active, .tab:hover { background: #eee; color: #111; border-color: #999; font-weight: 500; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .sec-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #888; text-transform: uppercase; margin: 1.4rem 0 8px; }
+  .card { background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 10px; }
+  .deliverable-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+  .deliverable-row:last-child { border-bottom: none; }
+  .badge { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+  .badge-blue { background: #E6F1FB; color: #0C447C; }
+  .badge-teal { background: #E1F5EE; color: #085041; }
+  .badge-purple { background: #EEEDFE; color: #3C3489; }
+  .badge-amber { background: #FAEEDA; color: #633806; }
+  .badge-coral { background: #FAECE7; color: #712B13; }
+  .del-text { font-size: 13.5px; color: #1a1a1a; line-height: 1.4; }
+  .del-sub { font-size: 12px; color: #666; margin-top: 3px; line-height: 1.4; }
+  .day-block { border-radius: 12px; border: 1px solid #e5e5e5; overflow: hidden; margin-bottom: 10px; }
+  .day-header { padding: 11px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .day-title { font-size: 14px; font-weight: 600; }
+  .day-date { font-size: 12px; opacity: 0.75; text-align: right; }
+  .day-tasks { background: #fff; padding: 4px 16px 10px; }
+  .task-row { display: flex; gap: 8px; padding: 6px 0; align-items: flex-start; font-size: 13px; color: #222; border-bottom: 1px solid #f2f2f2; }
+  .task-row:last-child { border-bottom: none; }
+  .task-tag { font-size: 11px; padding: 2px 7px; border-radius: 5px; font-weight: 600; flex-shrink: 0; margin-top: 1px; }
+  .tag-data, .ttag-data { background: #E6F1FB; color: #185FA5; }
+  .tag-model, .ttag-model { background: #EEEDFE; color: #534AB7; }
+  .tag-slides, .ttag-slides { background: #E1F5EE; color: #0F6E56; }
+  .tag-qa, .ttag-unsup, .ttag-hold { background: #FAEEDA; color: #854F0B; }
+  .tag-submit, .ttag-shap, .ttag-resp { background: #FAECE7; color: #993C1D; }
+  .ttag-eda { background: #EAF3DE; color: #3B6D11; }
+  .ttag-shared { background: #F1EFE8; color: #5F5E5A; }
+  .check-row { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; border-bottom: 1px solid #f0f0f0; font-size: 13.5px; }
+  .check-row:last-child { border-bottom: none; }
+  .check-box { width: 16px; height: 16px; border: 1.5px solid #bbb; border-radius: 4px; flex-shrink: 0; margin-top: 1px; }
+  .fx-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+  .fx-row:last-child { border-bottom: none; }
+  .arrow-up { color: #3B6D11; font-weight: 600; }
+  .bar-wrap { flex: 1; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+  .bar { height: 100%; border-radius: 3px; }
+  .city-pill { font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 6px; width: 66px; text-align: center; flex-shrink: 0; }
+  .col-w { width: 140px; flex-shrink: 0; font-size: 13px; color: #555; }
+  .col-v { width: 60px; text-align: right; flex-shrink: 0; font-size: 13px; font-weight: 600; }
+  .person-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
+  .person-card { background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden; }
+  .person-header { padding: 12px 14px 10px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f0f0f0; }
+  .avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+  .person-name { font-size: 14px; font-weight: 600; color: #1a1a1a; margin: 0; }
+  .person-role { font-size: 11px; color: #888; margin: 2px 0 0; }
+  .task-list { padding: 8px 14px 10px; }
+  .task-item { display: flex; gap: 8px; align-items: flex-start; padding: 5px 0; border-bottom: 1px solid #f2f2f2; font-size: 12.5px; color: #222; line-height: 1.4; }
+  .task-item:last-child { border-bottom: none; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .ttag { font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 4px; flex-shrink: 0; margin-top: 2px; white-space: nowrap; }
+  .section-divider { font-size: 10px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: .06em; padding: 6px 0 5px; }
+  .section-divider-new { font-size: 10px; font-weight: 600; color: #0F6E56; text-transform: uppercase; letter-spacing: .06em; padding: 8px 0 5px; }
+  .load-wrap { padding: 0 14px 12px; }
+  .load-label { font-size: 11px; color: #888; margin-top: 3px; }
+  .load-bar-bg { height: 7px; background: #eee; border-radius: 4px; overflow: hidden; margin-top: 5px; }
+  .load-bar-fill { height: 100%; border-radius: 4px; }
+  .dep-card { background: #fff; border: 1px solid #e5e5e5; border-radius: 10px; padding: 10px 14px; margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start; font-size: 13px; }
+  .dep-label { font-weight: 600; color: #1a1a1a; margin-bottom: 2px; font-size: 13px; }
+  .dep-sub { font-size: 12px; color: #666; line-height: 1.4; }
+  .shared-card { background: #fff; border: 1px solid #e5e5e5; border-radius: 10px; padding: 10px 14px; }
+  @media (max-width: 620px) {
+    body { padding: 1rem; }
+    .deadline-bar, .fx-row, .day-header { align-items: flex-start; }
+    .fx-row { flex-wrap: wrap; }
+    .bar-wrap { min-width: 120px; }
+  }
+  @media print { body { background: #fff; padding: 1rem; } .tab-row { display: none; } .panel { display: block !important; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Bedrock Capstone - Deliverables & Agenda</h1>
+  <p class="subtitle">MGSC 310 &nbsp;|&nbsp; Presenting Tuesday May 19, 11:00 AM</p>
+
+  <div class="deadline-bar">
+    <span>!</span>
+    <span><strong>Hard deadline:</strong> PDF submitted to Canvas by <strong>10:00 AM Tuesday May 19</strong> (1 hour before presentation)</span>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab active" onclick="showTab('deliverables', this)">Deliverables</button>
+    <button class="tab" onclick="showTab('agenda', this)">5-Day Agenda</button>
+    <button class="tab" onclick="showTab('checklist', this)">Final Checklist</button>
+    <button class="tab" onclick="showTab('team', this)">Team Assignments</button>
+  </div>
+
+  <div id="deliverables" class="panel active">
+    <p class="sec-label">Analysis deliverables</p>
+    <div class="card">
+      <div class="deliverable-row"><span class="badge badge-blue">Supervised 1</span><div><div class="del-text">2019 pricing model (regression)</div><div class="del-sub">Trained on all 5 cities combined, prices converted to USD. Baseline + at least 1 advanced method.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-blue">Supervised 2</span><div><div class="del-text">2025 pricing model (regression)</div><div class="del-sub">Same structure as 2019 model, enabling direct year-over-year comparison.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-purple">Unsupervised</span><div><div class="del-text">Listing segmentation / clustering</div><div class="del-sub">K-means, hierarchical, or similar. Identify guest-type groupings. Use findings to strengthen pricing models.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-teal">SHAP</span><div><div class="del-text">SHAP beeswarm diagrams - 2019 vs 2025</div><div class="del-sub">One per year. Explain which features gained or lost importance after disruption.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-amber">Response time</span><div><div class="del-text">Host response time analysis</div><div class="del-sub">Split hosts at "within an hour" threshold. Confusion matrix + defensible evaluation metric.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-coral">Holdout</span><div><div class="del-text">Price estimates for 5 new clients (H1-H5)</div><div class="del-sub">One listing per city. Apply 2025 model. Justify each estimate on a dedicated slide.</div></div></div>
+    </div>
+
+    <p class="sec-label">Slide deck deliverables (max 20 slides total)</p>
+    <div class="card">
+      <div class="deliverable-row"><span class="badge badge-blue">Slides</span><div><div class="del-text">Cover + executive narrative (up to 3 slides)</div><div class="del-sub">Business problem, HRI framing, key findings summary.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-blue">Slides</span><div><div class="del-text">EDA & market overview (up to 3 slides)</div><div class="del-sub">Descriptive stats, KPI visualizations, 2019 vs 2025 market shifts per city.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-blue">Slides</span><div><div class="del-text">Model results & comparison (up to 4 slides)</div><div class="del-sub">Accuracy, RMSE, confusion matrix, model selection rationale.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-blue">Slides</span><div><div class="del-text">Feature importance shift (1 slide)</div><div class="del-sub">Side-by-side SHAP beeswarms 2019 vs 2025. Business interpretation.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-blue">Slides</span><div><div class="del-text">Clustering insights (1 slide)</div><div class="del-sub">Guest segment profiles. Link to pricing power.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-blue">Slides</span><div><div class="del-text">Response time recommendation (1 slide)</div><div class="del-sub">Confusion matrix visual, metric, business recommendation for Bedrock.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-coral">Slides</span><div><div class="del-text">Holdout pricing slide - 5 new clients (1 dedicated slide)</div><div class="del-sub">Price estimates H1-H5 with justification per listing.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-blue">Slides</span><div><div class="del-text">Recommendations & conclusions (1-2 slides)</div><div class="del-sub">Actionable, specific, tied directly to model outputs.</div></div></div>
+      <div class="deliverable-row"><span class="badge badge-teal">Appendix</span><div><div class="del-text">Appendix (at least 5 slides - required content)</div><div class="del-sub">SHAP beeswarm, train/test accuracy & RMSE for all models, hyperparameter detail, runtime + hardware specs, data cleaning & assumptions.</div></div></div>
+    </div>
+
+    <p class="sec-label">Submission</p>
+    <div class="card">
+      <div class="deliverable-row"><span class="badge badge-coral">Submit</span><div><div class="del-text">Single PDF to Canvas - named 310-CAP-GroupName.pdf</div><div class="del-sub">Due 1 hour before presentation = 10:00 AM Tuesday May 19. PDF only, no Excel files.</div></div></div>
+    </div>
+  </div>
+
+  <div id="agenda" class="panel">
+    <div class="day-block"><div class="day-header" style="background:#E6F1FB;"><span class="day-title" style="color:#0C447C;">Thursday May 14</span><span class="day-date" style="color:#185FA5;">Today - Setup & Data</span></div><div class="day-tasks">
+      <div class="task-row"><span class="task-tag tag-data">data</span>Load all 10 CSVs, tag city + year, merge into master 2019 and 2025 dataframes</div>
+      <div class="task-row"><span class="task-tag tag-data">data</span>Currency conversion - JPY & EUR to USD using period-specific rates</div>
+      <div class="task-row"><span class="task-tag tag-data">data</span>Data cleaning: parse price column, handle nulls, encode categoricals, engineer amenities count</div>
+      <div class="task-row"><span class="task-tag tag-data">data</span>EDA: distributions, outlier check, city-level price comparisons 2019 vs 2025</div>
+      <div class="task-row"><span class="task-tag tag-data">data</span>Team sync: divide modeling tasks across members</div>
+    </div></div>
+
+    <div class="day-block"><div class="day-header" style="background:#EEEDFE;"><span class="day-title" style="color:#3C3489;">Friday May 15</span><span class="day-date" style="color:#534AB7;">Modeling Day 1</span></div><div class="day-tasks">
+      <div class="task-row"><span class="task-tag tag-model">model</span>Build 2019 supervised model: baseline linear regression + advanced (Random Forest or XGBoost)</div>
+      <div class="task-row"><span class="task-tag tag-model">model</span>Build 2025 supervised model: same pipeline for direct comparison</div>
+      <div class="task-row"><span class="task-tag tag-model">model</span>Hyperparameter tuning (GridSearchCV or RandomizedSearchCV) - document all settings</div>
+      <div class="task-row"><span class="task-tag tag-model">model</span>Unsupervised clustering: K-means with elbow method, label guest segments</div>
+      <div class="task-row"><span class="task-tag tag-model">model</span>Response time binary analysis: split at "within an hour", build confusion matrix</div>
+    </div></div>
+
+    <div class="day-block"><div class="day-header" style="background:#E1F5EE;"><span class="day-title" style="color:#085041;">Saturday May 16</span><span class="day-date" style="color:#0F6E56;">Modeling Day 2 + SHAP</span></div><div class="day-tasks">
+      <div class="task-row"><span class="task-tag tag-model">model</span>Generate SHAP beeswarm plots for 2019 model and 2025 model</div>
+      <div class="task-row"><span class="task-tag tag-model">model</span>Interpret SHAP outputs: which features gained or lost importance? Write 3-5 bullet findings</div>
+      <div class="task-row"><span class="task-tag tag-model">model</span>Run holdout predictions (H1-H5) using 2025 model, document justification per listing</div>
+      <div class="task-row"><span class="task-tag tag-slides">slides</span>Draft appendix content: all train/test metrics, hyperparams, runtime, hardware specs, cleaning notes</div>
+      <div class="task-row"><span class="task-tag tag-model">model</span>Model iteration: review RMSE, re-tune if needed, lock final models</div>
+    </div></div>
+
+    <div class="day-block"><div class="day-header" style="background:#FAEEDA;"><span class="day-title" style="color:#633806;">Sunday May 17</span><span class="day-date" style="color:#854F0B;">Slide Build Day</span></div><div class="day-tasks">
+      <div class="task-row"><span class="task-tag tag-slides">slides</span>Build full slide deck: cover, EDA, model results, SHAP, clustering, response time, holdout, recommendations</div>
+      <div class="task-row"><span class="task-tag tag-slides">slides</span>Narrative review: does each slide tell a story without verbal explanation?</div>
+      <div class="task-row"><span class="task-tag tag-slides">slides</span>Add all at least 5 appendix slides with required content</div>
+      <div class="task-row"><span class="task-tag tag-slides">slides</span>Verify slide count up to 20 main slides</div>
+      <div class="task-row"><span class="task-tag tag-qa">Q&A</span>Team rehearsal #1 - timed run, flag weak spots, assign Q&A ownership per topic</div>
+    </div></div>
+
+    <div class="day-block"><div class="day-header" style="background:#FAECE7;"><span class="day-title" style="color:#712B13;">Monday May 18</span><span class="day-date" style="color:#993C1D;">Polish + Final Prep</span></div><div class="day-tasks">
+      <div class="task-row"><span class="task-tag tag-slides">slides</span>Final edits based on rehearsal feedback, visual cleanup, consistent formatting</div>
+      <div class="task-row"><span class="task-tag tag-submit">submit</span>Export as PDF - verify file renders correctly, check filename: 310-CAP-GroupName.pdf</div>
+      <div class="task-row"><span class="task-tag tag-submit">submit</span>Submit to Canvas by end of day (don't wait until Tuesday morning)</div>
+      <div class="task-row"><span class="task-tag tag-qa">Q&A</span>Rehearsal #2 - full 10-min run with timer, practice Q&A responses as a team</div>
+      <div class="task-row"><span class="task-tag tag-qa">Q&A</span>Test Zoom setup, screen share, confirm Calendly slot is booked</div>
+    </div></div>
+
+    <div class="day-block"><div class="day-header" style="background:#F1EFE8;"><span class="day-title" style="color:#2C2C2A;">Tuesday May 19</span><span class="day-date" style="color:#5F5E5A;">Presentation Day</span></div><div class="day-tasks">
+      <div class="task-row"><span class="task-tag tag-submit">submit</span>10:00 AM - PDF submission deadline on Canvas (hard cutoff)</div>
+      <div class="task-row"><span class="task-tag tag-qa">Q&A</span>11:00 AM - Zoom presentation: 10-min delivery + 10-min Q&A</div>
+    </div></div>
+  </div>
+
+  <div id="checklist" class="panel">
+    <p class="sec-label">Required appendix content - must have all 5</p>
+    <div class="card">
+      <div class="check-row"><div class="check-box"></div><span>SHAP beeswarm visual (one for 2019 model, one for 2025 model)</span></div>
+      <div class="check-row"><div class="check-box"></div><span>Training & testing accuracy + RMSE for every model used</span></div>
+      <div class="check-row"><div class="check-box"></div><span>Detailed hyperparameter optimization description</span></div>
+      <div class="check-row"><div class="check-box"></div><span>Overall runtime + hardware specs (Colab, local machine, etc.)</span></div>
+      <div class="check-row"><div class="check-box"></div><span>Data cleaning process, assumptions, and methodology notes (at least 5 appendix slides total)</span></div>
+    </div>
+
+    <p class="sec-label">Currency conversions to apply before any modeling</p>
+    <div class="card">
+      <div class="fx-row"><span class="badge badge-amber">2019</span><span>EUR to USD: x1.120 &nbsp;|&nbsp; JPY to USD: x0.00917 &nbsp;|&nbsp; Chicago & Hawaii: no change</span></div>
+      <div class="fx-row"><span class="badge badge-teal">2025</span><span>EUR to USD: x1.080 &nbsp;|&nbsp; JPY to USD: x0.00667 &nbsp;|&nbsp; Chicago & Hawaii: no change</span></div>
+    </div>
+
+    <p class="sec-label">Markets by currency</p>
+    <div class="card">
+      <div class="fx-row"><span class="badge badge-amber">JPY</span><span>Tokyo</span></div>
+      <div class="fx-row"><span class="badge badge-blue">EUR</span><span>Athens, Rome</span></div>
+      <div class="fx-row"><span class="badge badge-teal">USD</span><span>Chicago, Hawaii - no conversion needed</span></div>
+    </div>
+
+    <p class="sec-label">Listing growth 2019 to 2025</p>
+    <div class="card" style="padding: 0.75rem 1.25rem;">
+      <div class="fx-row"><span class="city-pill" style="background:#EEEDFE;color:#3C3489;">Tokyo</span><span class="col-w">8,809 to 27,028</span><div class="bar-wrap"><div class="bar" style="width:100%;background:#7F77DD;"></div></div><span class="col-v arrow-up">+207%</span></div>
+      <div class="fx-row"><span class="city-pill" style="background:#E1F5EE;color:#085041;">Athens</span><span class="col-w">7,885 to 14,386</span><div class="bar-wrap"><div class="bar" style="width:40%;background:#1D9E75;"></div></div><span class="col-v arrow-up">+82%</span></div>
+      <div class="fx-row"><span class="city-pill" style="background:#E6F1FB;color:#0C447C;">Chicago</span><span class="col-w">4,449 to 8,107</span><div class="bar-wrap"><div class="bar" style="width:40%;background:#378ADD;"></div></div><span class="col-v arrow-up">+82%</span></div>
+      <div class="fx-row"><span class="city-pill" style="background:#FAECE7;color:#712B13;">Rome</span><span class="col-w">20,845 to 33,863</span><div class="bar-wrap"><div class="bar" style="width:30%;background:#D85A30;"></div></div><span class="col-v arrow-up">+62%</span></div>
+      <div class="fx-row"><span class="city-pill" style="background:#FAEEDA;color:#633806;">Hawaii</span><span class="col-w">21,922 to 29,002</span><div class="bar-wrap"><div class="bar" style="width:16%;background:#BA7517;"></div></div><span class="col-v arrow-up">+32%</span></div>
+    </div>
+
+    <p class="sec-label">Submission checklist</p>
+    <div class="card">
+      <div class="check-row"><div class="check-box"></div><span>File named exactly: 310-CAP-GroupName.pdf</span></div>
+      <div class="check-row"><div class="check-box"></div><span>Submitted via Canvas only (not Slack, not email)</span></div>
+      <div class="check-row"><div class="check-box"></div><span>Submitted by 10:00 AM Tuesday May 19</span></div>
+      <div class="check-row"><div class="check-box"></div><span>Calendly slot booked (one slot per team only)</span></div>
+      <div class="check-row"><div class="check-box"></div><span>All team members present on Zoom for delivery and Q&A</span></div>
+      <div class="check-row"><div class="check-box"></div><span>Slide deck is fully self-explanatory without verbal explanation</span></div>
+      <div class="check-row"><div class="check-box"></div><span>Max 20 main slides (appendix is separate and not counted)</span></div>
+    </div>
+  </div>
+
+  <div id="team" class="panel">
+    <p class="sec-label">Full task assignments - all three members</p>
+    <div class="person-grid">
+      <div class="person-card">
+        <div class="person-header"><div class="avatar" style="background:#E6F1FB;color:#0C447C;">AN</div><div><p class="person-name">Andrea</p><p class="person-role">Data foundation + unsupervised</p></div></div>
+        <div class="task-list">
+          <div class="section-divider">Already assigned</div>
+          <div class="task-item"><div class="dot" style="background:#378ADD;"></div><span class="ttag ttag-data">data</span>Load all 10 CSVs, tag city + year</div>
+          <div class="task-item"><div class="dot" style="background:#378ADD;"></div><span class="ttag ttag-data">data</span>Currency conversion JPY/EUR to USD</div>
+          <div class="task-item"><div class="dot" style="background:#378ADD;"></div><span class="ttag ttag-data">data</span>Full data cleaning pipeline</div>
+          <div class="task-item"><div class="dot" style="background:#378ADD;"></div><span class="ttag ttag-data">data</span>Feature engineering (all steps)</div>
+          <div class="section-divider-new">Newly assigned</div>
+          <div class="task-item"><div class="dot" style="background:#BA7517;"></div><span class="ttag ttag-unsup">unsup</span>K-means clustering + elbow method</div>
+          <div class="task-item"><div class="dot" style="background:#BA7517;"></div><span class="ttag ttag-unsup">unsup</span>Label and interpret guest segments</div>
+          <div class="task-item"><div class="dot" style="background:#BA7517;"></div><span class="ttag ttag-unsup">unsup</span>Clustering slide for deck</div>
+          <div class="task-item"><div class="dot" style="background:#888;"></div><span class="ttag ttag-shared">shared</span>Appendix: data cleaning + assumptions slides</div>
+        </div>
+        <div class="load-wrap"><div class="load-label">Estimated workload</div><div class="load-bar-bg"><div class="load-bar-fill" style="width:78%;background:#378ADD;"></div></div><div class="load-label" style="color:#185FA5;">Heavy - data work is the critical path</div></div>
+      </div>
+
+      <div class="person-card">
+        <div class="person-header"><div class="avatar" style="background:#EEEDFE;color:#3C3489;">MT</div><div><p class="person-name">Mia T</p><p class="person-role">Supervised models + slides</p></div></div>
+        <div class="task-list">
+          <div class="section-divider">Already assigned</div>
+          <div class="task-item"><div class="dot" style="background:#7F77DD;"></div><span class="ttag ttag-model">model</span>2019 supervised model (baseline + advanced)</div>
+          <div class="task-item"><div class="dot" style="background:#7F77DD;"></div><span class="ttag ttag-model">model</span>2025 supervised model</div>
+          <div class="task-item"><div class="dot" style="background:#7F77DD;"></div><span class="ttag ttag-model">model</span>Hyperparameter tuning (supervised)</div>
+          <div class="task-item"><div class="dot" style="background:#1D9E75;"></div><span class="ttag ttag-slides">slides</span>Full slide deck construction</div>
+          <div class="section-divider-new">Newly assigned</div>
+          <div class="task-item"><div class="dot" style="background:#D85A30;"></div><span class="ttag ttag-shap">SHAP</span>SHAP beeswarm plots (2019 + 2025)</div>
+          <div class="task-item"><div class="dot" style="background:#D85A30;"></div><span class="ttag ttag-shap">SHAP</span>SHAP interpretation: features gained/lost</div>
+          <div class="task-item"><div class="dot" style="background:#888;"></div><span class="ttag ttag-shared">shared</span>Appendix: train/test metrics + hyperparams</div>
+          <div class="task-item"><div class="dot" style="background:#888;"></div><span class="ttag ttag-shared">shared</span>PDF export + Canvas submission</div>
+        </div>
+        <div class="load-wrap"><div class="load-label">Estimated workload</div><div class="load-bar-bg"><div class="load-bar-fill" style="width:82%;background:#7F77DD;"></div></div><div class="load-label" style="color:#534AB7;">Heaviest - models + SHAP + full deck</div></div>
+      </div>
+
+      <div class="person-card">
+        <div class="person-header"><div class="avatar" style="background:#E1F5EE;color:#085041;">MN</div><div><p class="person-name">Mia N</p><p class="person-role">EDA + response time + holdout</p></div></div>
+        <div class="task-list">
+          <div class="section-divider">Already assigned</div>
+          <div class="task-item"><div class="dot" style="background:#639922;"></div><span class="ttag ttag-eda">EDA</span>Distributions + outlier checks</div>
+          <div class="task-item"><div class="dot" style="background:#639922;"></div><span class="ttag ttag-eda">EDA</span>City-level price comparisons 2019 vs 2025</div>
+          <div class="task-item"><div class="dot" style="background:#639922;"></div><span class="ttag ttag-eda">EDA</span>Descriptive stats + KPI visualizations</div>
+          <div class="section-divider-new">Newly assigned</div>
+          <div class="task-item"><div class="dot" style="background:#D85A30;"></div><span class="ttag ttag-resp">response</span>Response time binary analysis</div>
+          <div class="task-item"><div class="dot" style="background:#D85A30;"></div><span class="ttag ttag-resp">response</span>Confusion matrix + evaluation metric</div>
+          <div class="task-item"><div class="dot" style="background:#D85A30;"></div><span class="ttag ttag-resp">response</span>Response time slide for deck</div>
+          <div class="task-item"><div class="dot" style="background:#BA7517;"></div><span class="ttag ttag-hold">holdout</span>Holdout predictions H1-H5 (2025 model)</div>
+          <div class="task-item"><div class="dot" style="background:#BA7517;"></div><span class="ttag ttag-hold">holdout</span>Justify price estimates per listing</div>
+          <div class="task-item"><div class="dot" style="background:#888;"></div><span class="ttag ttag-shared">shared</span>Appendix: runtime + hardware specs slide</div>
+        </div>
+        <div class="load-wrap"><div class="load-label">Estimated workload</div><div class="load-bar-bg"><div class="load-bar-fill" style="width:74%;background:#1D9E75;"></div></div><div class="load-label" style="color:#085041;">Moderate-heavy - well-scoped, clear deliverables</div></div>
+      </div>
+    </div>
+
+    <p class="sec-label">Key dependencies - who needs what from whom</p>
+    <div class="dep-card"><span style="font-size:16px;color:#185FA5;flex-shrink:0;margin-top:1px;">-&gt;</span><div><div class="dep-label">Andrea to everyone</div><div class="dep-sub">Clean, merged, feature-engineered dataframes must be ready before Mia T can model and Mia N can run full EDA. Andrea's output is the critical path - target: end of Thursday.</div></div></div>
+    <div class="dep-card"><span style="font-size:16px;color:#534AB7;flex-shrink:0;margin-top:1px;">-&gt;</span><div><div class="dep-label">Mia T (2025 model) to Mia N (holdout)</div><div class="dep-sub">Mia N cannot run holdout predictions H1-H5 until the 2025 model is trained and exported. Mia T should share the model file (pickle/joblib) by end of Saturday.</div></div></div>
+    <div class="dep-card"><span style="font-size:16px;color:#534AB7;flex-shrink:0;margin-top:1px;">-&gt;</span><div><div class="dep-label">All outputs to Mia T (slide deck)</div><div class="dep-sub">Mia T is building the deck, so she needs finished outputs from Mia N (EDA charts, response time slide, holdout estimates) and Andrea (clustering visuals) by Sunday morning.</div></div></div>
+
+    <p class="sec-label">Shared responsibilities - everyone</p>
+    <div class="shared-card">
+      <div class="task-item"><div class="dot" style="background:#888;"></div>Two full rehearsals (Sunday + Monday) - all three present</div>
+      <div class="task-item"><div class="dot" style="background:#888;"></div>Q&A prep: each person owns Q&A for their own section</div>
+      <div class="task-item"><div class="dot" style="background:#888;"></div>Zoom presentation Tuesday 11:00 AM - everyone on camera</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
